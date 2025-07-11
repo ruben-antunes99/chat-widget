@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat Widget</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: transparent;
+    }
+
+    .chat-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #1e1e1e;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      font-size: 20px;
+      z-index: 9999;
+    }
+
+    .chat-notification {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 12px;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chat-box {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 320px;
+      background-color: #2b2b2b;
+      color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      display: none;
+      flex-direction: column;
+      padding: 16px;
+      z-index: 9999;
+    }
+
+    .chat-box h4 {
+      margin-top: 0;
+    }
+
+    .chat-options button {
+      margin: 8px 0;
+      padding: 10px;
+      width: 100%;
+      background-color: #3c3c3c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .chat-options button:hover {
+      background-color: #555;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: gray;
+      margin-right: 10px;
+    }
+
+    .message {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .message-text {
+      background-color: #3a3a3a;
+      border-radius: 8px;
+      padding: 10px;
+      max-width: 240px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-box" id="chatBox">
+    <div class="message">
+      <div class="avatar" id="avatar"></div>
+      <div class="message-text">
+        <strong>{{greeting}}</strong><br/>
+        It’s so good to see you here!<br/>
+        Is there anything I can help you with?<br/>
+        This time I’ll do it for free. :)
+      </div>
+    </div>
+    <div class="chat-options">
+      <button onclick="window.open('https://ruben-antunes.myportfolio.com/work','_blank')">I'm curious about the work Rúben has done.</button>
+      <button onclick="window.open('https://ruben-antunes.myportfolio.com/about','_blank')">Seriously, who is this guy?</button>
+      <button onclick="window.open('https://ruben-antunes.myportfolio.com/contact','_blank')">Let’s talk about digital or something else.</button>
+    </div>
+  </div>
+
+  <button class="chat-button" id="chatToggle">
+    💬
+    <div class="chat-notification" id="chatNotification">1</div>
+  </button>
+
+  <script>
+    const chatBox = document.getElementById('chatBox');
+    const chatToggle = document.getElementById('chatToggle');
+    const chatNotification = document.getElementById('chatNotification');
+
+    let opened = false;
+
+    function openChat() {
+      chatBox.style.display = 'flex';
+      opened = true;
+      chatNotification.style.display = 'none';
+
+      // Auto close after 15 seconds
+      setTimeout(() => {
+        chatBox.style.display = 'none';
+        opened = false;
+        chatNotification.style.display = 'flex';
+      }, 15000);
+    }
+
+    chatToggle.addEventListener('click', () => {
+      if (!opened) {
+        openChat();
+      } else {
+        chatBox.style.display = 'none';
+        opened = false;
+        chatNotification.style.display = 'flex';
+      }
+    });
+
+    // Auto open chat after 3 seconds
+    setTimeout(() => {
+      openChat();
+    }, 3000);
+  </script>
+
+</body>
+</html>
